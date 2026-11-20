@@ -27,8 +27,11 @@ function DPad({ onAction }: Props) {
 
   const fromEvent = (e: PointerEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
-    const dx = e.clientX - (r.left + r.width / 2);
-    if (Math.abs(dx) < r.width * 0.08) return; // zona morta no centro mantém a direção atual
+    // Palco girado 90° (celular em retrato): o "horizontal" do jogo é o eixo Y da tela.
+    const rotated = e.currentTarget.closest('[data-rotated="true"]') !== null;
+    const dx = rotated ? e.clientY - (r.top + r.height / 2) : e.clientX - (r.left + r.width / 2);
+    const size = rotated ? r.height : r.width;
+    if (Math.abs(dx) < size * 0.08) return; // zona morta no centro mantém a direção atual
     setDir(dx < 0 ? -1 : 1);
   };
 

@@ -10,8 +10,15 @@ export function useMediaQuery(query: string): boolean {
   return useSyncExternalStore(
     (cb) => {
       const mql = window.matchMedia(query);
-      mql.addEventListener("change", cb);
-      return () => mql.removeEventListener("change", cb);
+      // Safari antigo (iOS < 14) só tem addListener; resize cobre atrasos do evento no iOS.
+      if (mql.addEventListener) mql.addEventListener("change", cb);
+      else mql.addListener(cb);
+      window.addEventListener("resize", cb);
+      return () => {
+        if (mql.removeEventListener) mql.removeEventListener("change", cb);
+        else mql.removeListener(cb);
+        window.removeEventListener("resize", cb);
+      };
     },
     () => window.matchMedia(query).matches,
     () => false,

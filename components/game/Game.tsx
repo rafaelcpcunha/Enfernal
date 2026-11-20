@@ -180,12 +180,6 @@ export default function Game() {
     }
   });
 
-  // Celular girado para retrato no meio da partida: pausa até voltar para paisagem.
-  useEffect(() => {
-    const engine = engineRef.current;
-    if (isTouch && isPortrait && engine?.phase === "playing") engine.togglePause();
-  }, [isTouch, isPortrait]);
-
   useEffect(() => {
     const down = (e: KeyboardEvent) => onKey(e, true);
     const up = (e: KeyboardEvent) => onKey(e, false);
@@ -204,10 +198,16 @@ export default function Game() {
   const inGame = phase === "playing" || phase === "dying" || phase === "levelClear" || phase === "paused";
   // No celular o jogo sempre ocupa a tela inteira (menus inclusive).
   const immersive = isTouch;
+  // Celular em retrato (inclusive iPhone com bloqueio de rotação, onde o site não
+  // consegue travar paisagem): o palco é girado 90° via CSS e o jogo segue deitado.
+  const rotated = immersive && isPortrait;
+  const stageClass = [styles.stage, immersive && styles.immersive, rotated && styles.rotated]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={styles.wrapper} data-immersive={immersive}>
-      <div className={immersive ? `${styles.stage} ${styles.immersive}` : styles.stage}>
+      <div className={stageClass} data-rotated={rotated}>
         <canvas
           ref={canvasRef}
           className={styles.canvas}
@@ -240,14 +240,6 @@ export default function Game() {
 
         {inGame ? <TouchControls onAction={setAction} canShoot={canShoot} /> : null}
 
-        {immersive && inGame && isPortrait ? (
-          <div className={styles.rotate} role="alert">
-            <div className={styles.rotateIcon} aria-hidden>
-              📱
-            </div>
-            <p>Gire o celular para jogar na horizontal</p>
-          </div>
-        ) : null}
       </div>
     </div>
   );

@@ -271,35 +271,23 @@
   right: max(12px, env(safe-area-inset-right));
 }
 
-.rotate {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: grid;
-  place-content: center;
-  gap: 12px;
-  padding: 24px;
-  text-align: center;
-  background: #12343b;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 700;
+/* Retrato no celular: palco girado 90° ocupando a tela deitada. */
+.immersive.rotated {
+  inset: auto;
+  top: 0;
+  left: 100vw;
+  width: 100dvh;
+  height: 100vw;
+  transform-origin: top left;
+  transform: rotate(90deg);
 }
 
-.rotateIcon {
-  font-size: 56px;
-  animation: girar 1.8s ease-in-out infinite;
+.immersive.rotated .canvas {
+  width: min(100dvh, 100vw * 16 / 9);
 }
 
-@keyframes girar {
-  0%,
-  20% {
-    transform: rotate(0deg);
-  }
-  60%,
-  100% {
-    transform: rotate(-90deg);
-  }
+.immersive.rotated .topButtons {
+  right: 12px;
 }
 
 /* Telas baixas (celular deitado): card mais compacto. */
@@ -321,6 +309,25 @@
   .legend {
     display: none;
   }
+}
+
+/* Palco girado: a altura útil é a largura do celular, então usa o mesmo card compacto. */
+.rotated .card {
+  padding: 14px 18px;
+}
+.rotated .logo {
+  font-size: 30px;
+  margin: 0 0 4px;
+}
+.rotated .lead {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.rotated .controls {
+  margin: 12px 0 0;
+}
+.rotated .legend {
+  display: none;
 }
 
 /* ───────── Controles de toque ───────── */
@@ -406,4 +413,10 @@
   height: clamp(56px, 10vw, 76px);
   font-size: clamp(22px, 4vw, 30px);
   margin-bottom: clamp(30px, 6vw, 50px);
+}
+
+/* backdrop-filter dentro de um pai girado renderiza só parte da área em alguns navegadores. */
+.rotated .overlay {
+  backdrop-filter: none;
+  background: rgb(18 52 59 / 0.6);
 }
