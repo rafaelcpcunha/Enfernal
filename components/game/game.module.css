@@ -1,0 +1,409 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.stage {
+  position: relative;
+  width: min(100%, calc((100dvh - 160px) * 16 / 9), 1280px);
+  min-width: 280px;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 50px -20px rgb(18 52 59 / 0.45),
+    0 0 0 4px #ffffff,
+    0 0 0 7px var(--accent);
+  background: #dff3f1;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+.topButtons {
+  position: absolute;
+  top: 12.5%;
+  right: 2%;
+  display: flex;
+  gap: 8px;
+}
+
+.topButtons button {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 0;
+  background: rgb(255 255 255 / 0.85);
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
+}
+
+.topButtons button:focus-visible,
+.primary:focus-visible,
+.pad:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+/* ───────── Telas (título, pausa, fim) ───────── */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  padding: 16px;
+  background: rgb(18 52 59 / 0.35);
+  backdrop-filter: blur(3px);
+  overflow-y: auto;
+}
+
+.card {
+  /* margin:auto centraliza sem cortar o topo quando o card é maior que a tela */
+  margin: auto;
+  width: min(560px, 100%);
+  background: #ffffff;
+  border-radius: 20px;
+  padding: clamp(16px, 3vw, 28px);
+  text-align: center;
+  box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.4);
+  border: 3px solid var(--accent);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.logo {
+  margin: 4px 0 8px;
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.logo span {
+  color: #e63946;
+}
+
+.title {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 4vw, 32px);
+  color: var(--ink);
+}
+
+.lead {
+  margin: 0 auto 16px;
+  max-width: 44ch;
+  line-height: 1.5;
+  color: #35565c;
+}
+
+.primary {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(180deg, #34b3a3, var(--accent-strong));
+  box-shadow: 0 6px 0 #1d6f65;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.primary:hover {
+  transform: translateY(-1px);
+}
+
+.primary:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #1d6f65;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 6px 14px;
+  margin: 20px 0 12px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.controls div {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.controls dt {
+  font-weight: 800;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.controls dd {
+  margin: 0;
+  color: #557378;
+}
+
+.legend {
+  list-style: none;
+  padding: 12px 0 0;
+  margin: 0;
+  border-top: 1px dashed #c7e3df;
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: #35565c;
+  text-align: left;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dotBlue,
+.dotRed,
+.dotKit {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.dotBlue {
+  background: #9ad1f5;
+}
+
+.dotRed {
+  background: #f5a99a;
+  box-shadow: 0 0 0 2px #e76f51;
+}
+
+.dotKit {
+  border-radius: 3px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 2px #e63946;
+}
+
+.record {
+  margin: 14px 0 0;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0 0 16px;
+}
+
+.stats div {
+  background: #eef8f7;
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  gap: 2px;
+}
+
+.stats span {
+  font-size: 12px;
+  color: #557378;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.stats strong {
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.newRecord {
+  margin: -6px 0 14px;
+  font-weight: 800;
+  color: #e76f51;
+}
+
+/* ───────── Celular: tela cheia imersiva ───────── */
+
+.immersive {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+  box-shadow: none;
+  background: #12343b;
+  display: grid;
+  place-items: center;
+}
+
+/* Canvas mantém 16:9 e ocupa o máximo da tela, com faixas nas sobras. */
+.immersive .canvas {
+  width: min(100vw, 100dvh * 16 / 9);
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.immersive .topButtons {
+  right: max(12px, env(safe-area-inset-right));
+}
+
+.rotate {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  background: #12343b;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.rotateIcon {
+  font-size: 56px;
+  animation: girar 1.8s ease-in-out infinite;
+}
+
+@keyframes girar {
+  0%,
+  20% {
+    transform: rotate(0deg);
+  }
+  60%,
+  100% {
+    transform: rotate(-90deg);
+  }
+}
+
+/* Telas baixas (celular deitado): card mais compacto. */
+@media (max-height: 520px) {
+  .card {
+    padding: 14px 18px;
+  }
+  .logo {
+    font-size: 30px;
+    margin: 0 0 4px;
+  }
+  .lead {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .controls {
+    margin: 12px 0 0;
+  }
+  .legend {
+    display: none;
+  }
+}
+
+/* ───────── Controles de toque ───────── */
+
+.touch {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .touch {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 max(16px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+    pointer-events: none;
+  }
+}
+
+.dpad {
+  pointer-events: auto;
+  position: relative;
+  width: clamp(150px, 26vw, 220px);
+  height: clamp(72px, 13vw, 100px);
+  border-radius: 999px;
+  border: 2px solid rgb(255 255 255 / 0.7);
+  background: rgb(18 52 59 / 0.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8%;
+  color: #ffffff;
+  font-size: clamp(22px, 4vw, 32px);
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dpadLeft,
+.dpadRight {
+  display: grid;
+  place-items: center;
+  width: 44%;
+  height: 80%;
+  border-radius: 999px;
+  transition: background 0.06s;
+}
+
+.dpad[data-dir="-1"] .dpadLeft,
+.dpad[data-dir="1"] .dpadRight {
+  background: rgb(42 157 143 / 0.8);
+}
+
+.touchRight {
+  pointer-events: auto;
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+}
+
+.pad {
+  border-radius: 50%;
+  border: 2px solid rgb(255 255 255 / 0.75);
+  background: rgb(18 52 59 / 0.22);
+  color: #ffffff;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pad:active {
+  background: rgb(42 157 143 / 0.8);
+}
+
+.padJump {
+  width: clamp(76px, 14vw, 108px);
+  height: clamp(76px, 14vw, 108px);
+  font-size: clamp(28px, 5vw, 40px);
+}
+
+.padShoot {
+  width: clamp(56px, 10vw, 76px);
+  height: clamp(56px, 10vw, 76px);
+  font-size: clamp(22px, 4vw, 30px);
+  margin-bottom: clamp(30px, 6vw, 50px);
+}

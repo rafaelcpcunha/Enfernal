@@ -1,0 +1,47 @@
+.main {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+.header {
+  text-align: center;
+}
+
+.brand {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cross {
+  display: inline-grid;
+  place-items: center;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #e63946;
+  box-shadow: 0 0 0 3px #e63946;
+  font-size: 0.8em;
+}
+
+.tagline {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.footer {
+  max-width: 70ch;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}

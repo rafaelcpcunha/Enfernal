@@ -1,0 +1,45 @@
+:root {
+  --bg: #eaf6f4;
+  --ink: #12343b;
+  --muted: #557378;
+  --accent: #6cc7bb;
+  --accent-strong: #2a9d8f;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 15% 10%, #ffffff 0, transparent 40%),
+    radial-gradient(circle at 85% 90%, #d3efeb 0, transparent 45%),
+    var(--bg);
+  color: var(--ink);
+  font-family: ui-rounded, "Segoe UI", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+/* Partida em tela cheia no celular: sem rolagem nem "puxar para atualizar". */
+html:has([data-immersive="true"]) {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
